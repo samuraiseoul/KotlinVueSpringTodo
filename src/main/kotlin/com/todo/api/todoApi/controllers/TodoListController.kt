@@ -16,4 +16,9 @@ class TodoListController (private val todoListRepository: TodoListRepository){
     fun add(@RequestParam(name = "title") title : String, @RequestParam(name = "todoListId") todoListId : Long?) : TodoList {
         return todoListRepository.save(TodoList(title = title, todoListId = todoListId))
     }
+
+    @DeleteMapping("/delete")
+    fun delete(@RequestParam(name = "id") id : Long) {
+        return todoListRepository.deleteById(id)
+    }
 }
