@@ -6,7 +6,7 @@ import javax.persistence.*
 data class TodoList(
     val title: String = "",
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long = 0,
 
     val todoListId: Long? = null,

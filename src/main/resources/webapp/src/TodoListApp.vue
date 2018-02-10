@@ -1,7 +1,7 @@
 <template>
     <main>
         <h3>Todo List</h3>
-        <form class="addListForm" @submit.prevent="addList">
+        <form class="addListForm" @submit.prevent="addToList">
             <label>Todo List Text: <input type="text"/></label>
             <button>Add List</button>
         </form>
@@ -19,7 +19,7 @@
             return {lists:[]};
         },
         methods: {
-            addList: function(event){
+            addToList: function(event){
                 let form = event.target;
                 let input = form.querySelector('input');
                 this.lists.push(new TodoList(0, input.value, 0, 0));
