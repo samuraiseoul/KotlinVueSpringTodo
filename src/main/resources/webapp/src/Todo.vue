@@ -35,8 +35,6 @@
                 this.isAdding = false;
             },
             deleteList(index){
-                let formData =  new FormData();
-                formData.append('id', this.list.todoListItems[index].id);
                 fetch(`http://127.0.0.1:8080/api/items/delete?id=${this.list.todoListItems[index].id}`, {
                     method:'DELETE'
                 }).then(() => {
