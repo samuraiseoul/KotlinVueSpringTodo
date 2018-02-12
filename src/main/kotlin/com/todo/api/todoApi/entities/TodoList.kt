@@ -11,7 +11,7 @@ data class TodoList(
 
     val todoListId: Long? = null,
 
-    @OneToMany
+    @OneToMany(cascade = [CascadeType.ALL], orphanRemoval = true)
     @JoinColumn(name="todoListId")
     var todoListItems: Collection<TodoList> = emptyList()
 )
