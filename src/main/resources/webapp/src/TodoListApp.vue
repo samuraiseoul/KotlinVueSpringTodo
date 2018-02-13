@@ -2,12 +2,12 @@
     <main>
         <h3>Todo List</h3>
         <form class="addListForm" @submit.prevent="addToList">
-            <label>Todo List Text: <input name="title" type="text"/></label>
-            <button>Add List</button>
+            <label><input name="title" type="text"/></label>
+            <button><i class="fas fa-plus fa-lg"></i></button>
         </form>
-        <ol>
-            <Todo v-for="(list, index) in lists" v-bind:list="list" v-on:delete="deleteList(index)"></Todo>
-        </ol>
+        <ul>
+            <Todo v-for="(list, index) in lists" :key="list.id" v-bind:list="list" v-on:delete="deleteList(index)"></Todo>
+        </ul>
     </main>
 </template>
 
@@ -47,5 +47,16 @@
     }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+    h3{
+        font-size: 3em;
+    }
+    *{
+        width: fit-content;
+        margin: .35em auto;
+    }
+    button{
+        background: none;
+        border: none;
+    }
 </style>
