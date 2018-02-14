@@ -27,7 +27,12 @@
         data: () => {return {isAdding: false, isOpen: true}},
         methods: {
             toggleChildren(){this.isOpen = !this.isOpen;},
-            toggleAdd(){this.isAdding = !this.isAdding;},
+            toggleAdd(event){
+                this.isAdding = !this.isAdding;
+                if(this.isAdding) {
+                    this.$nextTick(() => event.target.closest('li').querySelector('input[name=title]').focus());
+                }
+            },
             cancelAdd(){this.isAdding = false;},
             addToList(event){
                 fetch('http://127.0.0.1:8080/api/items/add', {
