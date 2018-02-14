@@ -2,7 +2,7 @@
     <main>
         <h3>Todo List</h3>
         <form class="addListForm" @submit.prevent="addToList">
-            <label><input name="title" type="text"/></label>
+            <label><input name="title" type="text" placeholder="New List"/></label>
             <button><i class="fas fa-plus fa-lg"></i></button>
         </form>
         <ul>
@@ -58,5 +58,13 @@
     button{
         background: none;
         border: none;
+        outline:none;
+        cursor: pointer;
+    }
+    input[type=text] {
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        outline:none;
     }
 </style>

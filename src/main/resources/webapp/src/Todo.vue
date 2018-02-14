@@ -1,7 +1,7 @@
 <template>
     <li :parentId="list.todoListId">
         <template v-if="this.list.todoListItems.length">
-            <i class="far fa-minus-square" v-on:click="toggleChildren" v-bind:class="{hide: !isOpen}"></i>
+            <i class="far fa-minus-square listControl" v-on:click="toggleChildren" v-bind:class="{hide: !isOpen}"></i>
             <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-bind:class="{hide: isOpen}"></i>
         </template>
         <span>{{list.title}}</span>
@@ -9,7 +9,7 @@
         <button type="button" v-on:click="$emit('delete')"><i class="fas fa-trash-alt fa-lg"></i></button>
         <form class="addListForm" @submit.prevent="addToList" v-bind:class="{hide: !isAdding}">
             <input type="hidden" :value="list.id" name="todoListId">
-            <label><input name="title" type="text"/></label>
+            <label><input name="title" type="text" placeholder="New note"/></label>
             <button><i class="fas fa-plus  fa-lg"></i></button>
             <button type="button" v-on:click="cancelAdd"><i class="fas fa-trash-alt  fa-lg"></i></button>
         </form>
@@ -65,5 +65,16 @@
         background: none;
         border: none;
         outline:none;
+        cursor: pointer;
+    } 
+    .listControl {
+        cursor: pointer;
+    }
+    input[type=text] {
+        border: none;
+        border-radius: 0;
+        border-bottom: 1px solid black;
+        outline:none;
+        margin-bottom: .25em;
     }
 </style>
