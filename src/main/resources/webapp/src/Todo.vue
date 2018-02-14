@@ -1,7 +1,9 @@
 <template>
     <li :parentId="list.todoListId">
-        <i class="far fa-minus-square" v-on:click="toggleChildren" v-bind:class="{hide: !isOpen}"></i>
-        <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-bind:class="{hide: isOpen}"></i>
+        <template v-if="this.list.todoListItems.length">
+            <i class="far fa-minus-square" v-on:click="toggleChildren" v-bind:class="{hide: !isOpen}"></i>
+            <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-bind:class="{hide: isOpen}"></i>
+        </template>
         <span>{{list.title}}</span>
         <button type="button" v-on:click="toggleAdd"><i class="fas fa-list fa-lg"></i></button>
         <button type="button" v-on:click="$emit('delete')"><i class="fas fa-trash-alt fa-lg"></i></button>
@@ -62,5 +64,6 @@
     button{
         background: none;
         border: none;
+        outline:none;
     }
 </style>
