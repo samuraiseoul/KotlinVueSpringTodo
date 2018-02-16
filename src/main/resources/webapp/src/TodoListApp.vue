@@ -51,9 +51,15 @@
     h3{
         font-size: 3em;
     }
+    main{
+        padding: 1em;
+    }
     *{
-        width: fit-content;
+        font-family: 'Font Awesome 5 Free', sans-serif;
         margin: .35em auto;
+    }
+    ul{
+        padding: 0;
     }
     button{
         background: none;

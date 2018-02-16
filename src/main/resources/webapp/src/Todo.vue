@@ -64,6 +64,7 @@
     ul {
         li {
             list-style-type: none;
+            margin-top: .5em;
         }
     }
     button{
