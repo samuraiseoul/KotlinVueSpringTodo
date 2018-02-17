@@ -1,14 +1,14 @@
 <template>
-    <main>
-        <h3>Todo List</h3>
+    <div>
         <form class="addListForm" @submit.prevent="addToList">
             <label><input name="title" type="text" placeholder="New List"/></label>
             <button><i class="fas fa-plus fa-lg"></i></button>
         </form>
         <ul>
-            <Todo v-for="(list, index) in lists" :key="list.id" v-bind:list="list" v-on:delete="deleteList(index)"></Todo>
+            <Todo v-for="(list, index) in lists" :key="list.id" v-bind:list="list"
+                  v-on:delete="deleteList(index)"></Todo>
         </ul>
-    </main>
+    </div>
 </template>
 
 <script>
@@ -48,16 +48,6 @@
 </script>
 
 <style lang="scss" scoped>
-    h3{
-        font-size: 3em;
-    }
-    main{
-        padding: 1em;
-    }
-    *{
-        font-family: 'Font Awesome 5 Free', sans-serif;
-        margin: .35em auto;
-    }
     ul{
         padding: 0;
     }

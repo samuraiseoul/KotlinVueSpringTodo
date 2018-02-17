@@ -1,7 +1,10 @@
 import Vue from 'vue'
-import TodoListApp from './TodoListApp.vue'
+import router from './routes.js'
+import App from './App.vue'
 
 new Vue({
     el: '#app',
-    render: f => f(TodoListApp)
+    router,
+    template: '<App/>',
+    components: {App}
 })
