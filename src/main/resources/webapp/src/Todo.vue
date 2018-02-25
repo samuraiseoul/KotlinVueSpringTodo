@@ -5,8 +5,7 @@
             <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-if="isOpen"></i>
         </template>
         <span>{{list.title}}</span>
-        <button type="button" v-on:click="toggleAdd"><i class="fas fa-list fa-lg"></i></button>
-        <button type="button" v-on:click="$emit('delete')"><i class="fas fa-trash-alt fa-lg"></i></button>
+        <TodoControls v-on:toggle="toggleAdd" v-on:delete="$emit('delete')"></TodoControls>
         <AddItemForm v-on:add="addToList" v-on:cancel="cancelAdd" v-if="isAdding"></AddItemForm>
         <ul v-if="isOpen">
             <Todo v-for="(list, index) in list.todoListItems" :key="list.id" v-bind:list="list" v-on:delete="deleteList(index)"></Todo>
@@ -17,10 +16,11 @@
 <script>
     import TodoList from './TodoList';
     import AddItemForm from './AddItemForm';
+    import TodoControls from './TodoControls';
     export default {
         props: ['list'],
         name: 'Todo',
-        components: {AddItemForm},
+        components: {AddItemForm, TodoControls},
         data: () => {return {isAdding: false, isOpen: true}},
         methods: {
             toggleChildren(){this.isOpen = !this.isOpen;},
