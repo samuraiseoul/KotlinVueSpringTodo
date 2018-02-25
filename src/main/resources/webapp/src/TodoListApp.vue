@@ -1,9 +1,6 @@
 <template>
     <div>
-        <form class="addListForm" @submit.prevent="addToList">
-            <label><input name="title" type="text" placeholder="New List"/></label>
-            <button><i class="fas fa-plus fa-lg"></i></button>
-        </form>
+        <AddItemForm v-on:add="addToList"></AddItemForm>
         <ul>
             <Todo v-for="(list, index) in lists" :key="list.id" v-bind:list="list"
                   v-on:delete="deleteList(index)"></Todo>
@@ -14,20 +11,22 @@
 <script>
     import TodoList from './TodoList.js';
     import Todo from './Todo.vue';
+    import AddItemForm from './AddItemForm';
     export default {
         data: () => {
             return {lists:[]};
         },
         methods: {
-            addToList: function(event){
+            addToList: function(titleText){
+                let formData = new FormData();
+                formData.append('title', titleText);
                 fetch('http://127.0.0.1:8080/api/items/add', {
                     method:'POST',
-                    body: new FormData(event.target)
+                    body: formData
                 }).then(response => response.json())
                     .then(
                         json => this.lists.push(new TodoList(json.id, json.title))
                     );
-                event.target.querySelector('input[name=title]').value = '';
                 this.isAdding = false;
             },
             deleteList: function(index){
@@ -38,7 +37,7 @@
                 });
             }
         },
-        components: { Todo },
+        components: { Todo, AddItemForm },
         created: function(){
             fetch('http://127.0.0.1:8080/api/items/all')
                 .then(response => response.json())

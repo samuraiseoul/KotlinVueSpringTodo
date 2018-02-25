@@ -3,6 +3,7 @@
         <main>
             <h3>Todo List</h3>
             <router-link to="/login">Login</router-link>
+            <router-link to="/todo">List</router-link>
             <router-view></router-view>
         </main>
     </div>

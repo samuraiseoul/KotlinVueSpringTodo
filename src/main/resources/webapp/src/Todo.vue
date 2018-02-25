@@ -1,19 +1,14 @@
 <template>
     <li :parentId="list.todoListId">
-        <template v-if="this.list.todoListItems.length">
-            <i class="far fa-minus-square listControl" v-on:click="toggleChildren" v-bind:class="{hide: !isOpen}"></i>
-            <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-bind:class="{hide: isOpen}"></i>
+        <template v-if="list.todoListItems.length">
+            <i class="far fa-minus-square listControl" v-on:click="toggleChildren" v-if="!isOpen"></i>
+            <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-if="isOpen"></i>
         </template>
         <span>{{list.title}}</span>
         <button type="button" v-on:click="toggleAdd"><i class="fas fa-list fa-lg"></i></button>
         <button type="button" v-on:click="$emit('delete')"><i class="fas fa-trash-alt fa-lg"></i></button>
-        <form class="addListForm" @submit.prevent="addToList" v-bind:class="{hide: !isAdding}">
-            <input type="hidden" :value="list.id" name="todoListId">
-            <label><input name="title" type="text" placeholder="New note"/></label>
-            <button><i class="fas fa-plus  fa-lg"></i></button>
-            <button type="button" v-on:click="cancelAdd"><i class="fas fa-trash-alt  fa-lg"></i></button>
-        </form>
-        <ul v-bind:class="{hide: !isOpen}">
+        <AddItemForm v-on:add="addToList" v-on:cancel="cancelAdd" v-if="isAdding"></AddItemForm>
+        <ul v-if="isOpen">
             <Todo v-for="(list, index) in list.todoListItems" :key="list.id" v-bind:list="list" v-on:delete="deleteList(index)"></Todo>
         </ul>
     </li>
@@ -21,9 +16,11 @@
 
 <script>
     import TodoList from './TodoList';
+    import AddItemForm from './AddItemForm';
     export default {
         props: ['list'],
         name: 'Todo',
+        components: {AddItemForm},
         data: () => {return {isAdding: false, isOpen: true}},
         methods: {
             toggleChildren(){this.isOpen = !this.isOpen;},
@@ -34,15 +31,18 @@
                 }
             },
             cancelAdd(){this.isAdding = false;},
-            addToList(event){
+            addToList(titleText){
+                console.log(`NoteText: ${titleText}`);
+                let formData = new FormData();
+                formData.append('title', titleText);
+                formData.append('todoListId', this.list.id);
                 fetch('http://127.0.0.1:8080/api/items/add', {
                     method:'POST',
-                    body: new FormData(event.target)
+                    body: formData
                 }).then(response => response.json())
                 .then(
                     json => this.list.todoListItems.push(new TodoList(json.id, json.title, json.todoListId))
                 );
-                event.target.querySelector('input[name=title]').value = '';
                 this.isAdding = false;
                 this.isOpen = true;
             },
