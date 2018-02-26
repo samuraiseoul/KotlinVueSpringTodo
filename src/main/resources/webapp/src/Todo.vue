@@ -44,29 +44,8 @@
 </script>
 
 <style lang="scss" scoped>
-    .hide{
-        display: none;
-    }
-    ul {
-        li {
-            list-style-type: none;
-            margin-top: .5em;
-        }
-    }
-    button{
-        background: none;
-        border: none;
-        outline:none;
-        cursor: pointer;
-    } 
-    .listControl {
-        cursor: pointer;
-    }
-    input[type=text] {
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid black;
-        outline:none;
-        margin-bottom: .25em;
+    li {
+        list-style-type: none;
+        margin-top: .5em;
     }
 </style>

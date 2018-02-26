@@ -23,10 +23,4 @@
 </script>
 
 <style lang="scss" scoped>
-    ul {
-        li {
-            list-style-type: none;
-            margin-top: .5em;
-        }
-    }
 </style>

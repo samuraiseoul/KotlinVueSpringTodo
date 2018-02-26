@@ -18,7 +18,7 @@
             addToList: function(titleText){
                 let formData = new FormData();
                 formData.append('title', titleText);
-                Fetcher.post(formData).then(json => this.lists.push(new TodoList(json.id, json.title)));
+                Fetcher.post('api/items/add', formData).then(json => this.lists.push(new TodoList(json.id, json.title)));
                 this.isAdding = false;
             }
         },
@@ -30,19 +30,7 @@
 </script>
 
 <style lang="scss" scoped>
-    ul{
+    div > ul {
         padding: 0;
-    }
-    button{
-        background: none;
-        border: none;
-        outline:none;
-        cursor: pointer;
-    }
-    input[type=text] {
-        border: none;
-        border-radius: 0;
-        border-bottom: 1px solid black;
-        outline:none;
     }
 </style>

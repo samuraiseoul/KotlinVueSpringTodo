@@ -25,10 +25,6 @@
 </script>
 
 <style lang="scss" scoped>
-    .hide {
-        display: none;
-    }
-
     button {
         background: none;
         border: none;
@@ -42,5 +38,8 @@
         border-bottom: 1px solid black;
         outline: none;
         margin-bottom: .25em;
+        &:-webkit-autofill {
+            -webkit-box-shadow: 0 0 0 30px white inset;
+        }
     }
 </style>

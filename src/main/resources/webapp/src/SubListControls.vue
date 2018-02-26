@@ -1,7 +1,7 @@
 <template>
     <div>
         <i class="far fa-minus-square listControl" v-on:click="$emit('toggle')" v-if="!show"></i>
-        <i class="far fa-caret-square-down" v-on:click="$emit('toggle')" v-if="show"></i>
+        <i class="far fa-caret-square-down listControl" v-on:click="$emit('toggle')" v-if="show"></i>
     </div>
 </template>
 
@@ -22,10 +22,7 @@
         display: inline;
     }
 
-    button {
-        background: none;
-        border: none;
-        outline: none;
+    .listControl {
         cursor: pointer;
     }
 </style>
