@@ -5,6 +5,7 @@
 </template>
 
 <script>
+    import Fetcher from './Fetcher';
     export default {
         props: ['lists'],
         beforeCreate: function() { //https://vuejs.org/v2/guide/components.html#Circular-References-Between-Components
@@ -13,9 +14,7 @@
         name: 'List',
         methods: {
             deleteList: function(index) {
-                fetch(`http://127.0.0.1:8080/api/items/delete?id=${this.lists[index].id}`, {
-                    method: 'DELETE'
-                }).then(() => {
+                Fetcher.delete(`api/items/delete?id=${this.lists[index].id}`).then(() => {
                     this.lists.splice(index, 1);
                 });
             }

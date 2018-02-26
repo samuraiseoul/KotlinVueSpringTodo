@@ -9,6 +9,7 @@
     import TodoList from './TodoList.js';
     import List from './List.vue'
     import AddItemForm from './AddItemForm';
+    import Fetcher from './Fetcher';
     export default {
         data: () => {
             return {lists:[]};
@@ -17,21 +18,13 @@
             addToList: function(titleText){
                 let formData = new FormData();
                 formData.append('title', titleText);
-                fetch('http://127.0.0.1:8080/api/items/add', {
-                    method:'POST',
-                    body: formData
-                }).then(response => response.json())
-                    .then(
-                        json => this.lists.push(new TodoList(json.id, json.title))
-                    );
+                Fetcher.post(formData).then(json => this.lists.push(new TodoList(json.id, json.title)));
                 this.isAdding = false;
             }
         },
         components: { List, AddItemForm },
         created: function(){
-            fetch('http://127.0.0.1:8080/api/items/all')
-                .then(response => response.json())
-                .then(json => this.lists = json)
+            Fetcher.get('api/items/all').then(json => this.lists = json);
         }
     }
 </script>

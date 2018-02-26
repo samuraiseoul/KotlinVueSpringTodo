@@ -13,6 +13,7 @@
     import AddItemForm from './AddItemForm';
     import TodoControls from './TodoControls';
     import SubListControls from './SubListControls';
+    import Fetcher from './Fetcher';
     import List from './List.vue';
     export default {
         props: ['list'],
@@ -32,11 +33,7 @@
                 let formData = new FormData();
                 formData.append('title', titleText);
                 formData.append('todoListId', this.list.id);
-                fetch('http://127.0.0.1:8080/api/items/add', {
-                    method:'POST',
-                    body: formData
-                }).then(response => response.json())
-                .then(
+                Fetcher.post('api/items/add', formData).then(
                     json => this.list.todoListItems.push(new TodoList(json.id, json.title, json.todoListId))
                 );
                 this.isAdding = false;
