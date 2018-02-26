@@ -1,15 +1,10 @@
 <template>
     <li :parentId="list.todoListId">
-        <template v-if="list.todoListItems.length">
-            <i class="far fa-minus-square listControl" v-on:click="toggleChildren" v-if="!isOpen"></i>
-            <i class="far fa-caret-square-down" v-on:click="toggleChildren" v-if="isOpen"></i>
-        </template>
+        <SubListControls v-if="list.todoListItems.length" :show="isOpen" v-on:toggle="toggleChildren"></SubListControls>
         <span>{{list.title}}</span>
         <TodoControls v-on:toggle="toggleAdd" v-on:delete="$emit('delete')"></TodoControls>
         <AddItemForm v-on:add="addToList" v-on:cancel="cancelAdd" v-if="isAdding"></AddItemForm>
-        <ul v-if="isOpen">
-            <Todo v-for="(list, index) in list.todoListItems" :key="list.id" v-bind:list="list" v-on:delete="deleteList(index)"></Todo>
-        </ul>
+        <List v-if="isOpen" :lists="list.todoListItems"></List>
     </li>
 </template>
 
@@ -17,10 +12,12 @@
     import TodoList from './TodoList';
     import AddItemForm from './AddItemForm';
     import TodoControls from './TodoControls';
+    import SubListControls from './SubListControls';
+    import List from './List.vue';
     export default {
         props: ['list'],
         name: 'Todo',
-        components: {AddItemForm, TodoControls},
+        components: {AddItemForm, TodoControls, SubListControls, List},
         data: () => {return {isAdding: false, isOpen: true}},
         methods: {
             toggleChildren(){this.isOpen = !this.isOpen;},
@@ -32,7 +29,6 @@
             },
             cancelAdd(){this.isAdding = false;},
             addToList(titleText){
-                console.log(`NoteText: ${titleText}`);
                 let formData = new FormData();
                 formData.append('title', titleText);
                 formData.append('todoListId', this.list.id);
@@ -45,13 +41,6 @@
                 );
                 this.isAdding = false;
                 this.isOpen = true;
-            },
-            deleteList(index){
-                fetch(`http://127.0.0.1:8080/api/items/delete?id=${this.list.todoListItems[index].id}`, {
-                    method:'DELETE'
-                }).then(() => {
-                    this.list.todoListItems.splice(index, 1);
-                });
             }
         }
     }

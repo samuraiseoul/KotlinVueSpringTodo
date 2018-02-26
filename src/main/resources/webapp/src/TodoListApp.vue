@@ -1,16 +1,13 @@
 <template>
     <div>
         <AddItemForm v-on:add="addToList"></AddItemForm>
-        <ul>
-            <Todo v-for="(list, index) in lists" :key="list.id" v-bind:list="list"
-                  v-on:delete="deleteList(index)"></Todo>
-        </ul>
+        <List :lists="lists"></List>
     </div>
 </template>
 
 <script>
     import TodoList from './TodoList.js';
-    import Todo from './Todo.vue';
+    import List from './List.vue'
     import AddItemForm from './AddItemForm';
     export default {
         data: () => {
@@ -28,16 +25,9 @@
                         json => this.lists.push(new TodoList(json.id, json.title))
                     );
                 this.isAdding = false;
-            },
-            deleteList: function(index){
-                fetch(`http://127.0.0.1:8080/api/items/delete?id=${this.lists[index].id}`, {
-                    method:'DELETE'
-                }).then(() => {
-                    this.lists.splice(index, 1);
-                });
             }
         },
-        components: { Todo, AddItemForm },
+        components: { List, AddItemForm },
         created: function(){
             fetch('http://127.0.0.1:8080/api/items/all')
                 .then(response => response.json())
